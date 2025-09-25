@@ -20,6 +20,56 @@ app.get("/", async (req, res) => {
   }
 });
 
+app.get("/qb", async (req, res) => {
+  try {
+    const qbs = await db.any(`SELECT * FROM public."QB"`);
+    res.json(qbs);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send(`Database error: ${err}`);
+  }
+});
+
+app.get("/rb", async (req, res) => {
+  try {
+    const qbs = await db.any(`SELECT * FROM public."RB"`);
+    res.json(qbs);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send(`Database error: ${err}`);
+  }
+});
+
+app.get("/wr", async (req, res) => {
+  try {
+    const qbs = await db.any(`SELECT * FROM public."WR"`);
+    res.json(qbs);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send(`Database error: ${err}`);
+  }
+});
+
+app.get("/te", async (req, res) => {
+  try {
+    const qbs = await db.any(`SELECT * FROM public."TE"`);
+    res.json(qbs);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send(`Database error: ${err}`);
+  }
+});
+
+app.get("/k", async (req, res) => {
+  try {
+    const qbs = await db.any(`SELECT * FROM public."K"`);
+    res.json(qbs);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send(`Database error: ${err}`);
+  }
+});
+
 app.listen(port, () => {
   console.log(`Capstone Backend listening on port ${port}`);
 });
