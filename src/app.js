@@ -4,6 +4,8 @@ const db = require("./db");
 const app = express();
 const port = 3040;
 
+const { qbRoutes } = require("./qb");
+
 app.get("/", async (req, res) => {
   try {
     const data = await db.one("SELECT $1 AS value", 123);
@@ -15,15 +17,7 @@ app.get("/", async (req, res) => {
   }
 });
 
-app.get("/qb", async (req, res) => {
-  try {
-    const qbs = await db.any(`SELECT * FROM public."QB"`);
-    res.json(qbs);
-  } catch (err) {
-    console.error(err);
-    res.status(500).send(`Database error: ${err}`);
-  }
-});
+app.use("/qb", qbRoutes);
 
 app.get("/rb", async (req, res) => {
   try {
