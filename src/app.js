@@ -4,8 +4,6 @@ const db = require("./db");
 const app = express();
 const port = 3040;
 
-const { qbRoutes } = require("./qb");
-
 app.get("/", async (req, res) => {
   try {
     const data = await db.one("SELECT $1 AS value", 123);
@@ -17,47 +15,20 @@ app.get("/", async (req, res) => {
   }
 });
 
+const { qbRoutes } = require("./qb");
 app.use("/qb", qbRoutes);
 
-app.get("/rb", async (req, res) => {
-  try {
-    const qbs = await db.any(`SELECT * FROM public."RB"`);
-    res.json(qbs);
-  } catch (err) {
-    console.error(err);
-    res.status(500).send(`Database error: ${err}`);
-  }
-});
+const { rbRoutes } = require("./rb");
+app.use("/rb", rbRoutes);
 
-app.get("/wr", async (req, res) => {
-  try {
-    const qbs = await db.any(`SELECT * FROM public."WR"`);
-    res.json(qbs);
-  } catch (err) {
-    console.error(err);
-    res.status(500).send(`Database error: ${err}`);
-  }
-});
+const { wrRoutes } = require("./wr");
+app.use("/wr", wrRoutes);
 
-app.get("/te", async (req, res) => {
-  try {
-    const qbs = await db.any(`SELECT * FROM public."TE"`);
-    res.json(qbs);
-  } catch (err) {
-    console.error(err);
-    res.status(500).send(`Database error: ${err}`);
-  }
-});
+const { teRoutes } = require("./te");
+app.use("/te", teRoutes);
 
-app.get("/k", async (req, res) => {
-  try {
-    const qbs = await db.any(`SELECT * FROM public."K"`);
-    res.json(qbs);
-  } catch (err) {
-    console.error(err);
-    res.status(500).send(`Database error: ${err}`);
-  }
-});
+const { kRoutes } = require("./k");
+app.use("/k", kRoutes);
 
 app.listen(port, () => {
   console.log(`Capstone Backend listening on port ${port}`);
