@@ -1,8 +1,30 @@
 const express = require("express");
+const swaggerUi = require("swagger-ui-express");
+const swaggerJsDoc = require("swagger-jsdoc");
 const db = require("./db");
 
 const app = express();
 const port = 3040;
+
+const swaggerOptions = {
+  definition: {
+    openapi: "3.0.0",
+    info: {
+      title: "Capstone API",
+      version: "1.0.0",
+      description: `Football documentation for Pedro Lopez's capstone project`,
+    },
+    servers: [
+      {
+        url: "http://localhost:3040",
+      },
+    ],
+  },
+  apis: ["./src/*/*Routes.js"],
+};
+
+const swaggerSpec = swaggerJsDoc(swaggerOptions);
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.get("/", async (req, res) => {
   try {
@@ -32,4 +54,5 @@ app.use("/k", kRoutes);
 
 app.listen(port, () => {
   console.log(`Capstone Backend listening on port ${port}`);
+  console.log(`Swagger docs available at http://localhost:${port}/api-docs`);
 });
