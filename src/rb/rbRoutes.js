@@ -39,6 +39,16 @@ const rbController = require("./rbController");
  *                     type: number
  *                     format: float
  *                     example: 22.5
+ *       500:
+ *         description: Internal server error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Database error: connection failed"
  */
 router.get("/", rbController.getAllRBs);
 

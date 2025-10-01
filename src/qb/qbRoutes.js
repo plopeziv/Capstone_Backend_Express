@@ -39,6 +39,16 @@ const qbController = require("./qbController");
  *                     type: number
  *                     format: float
  *                     example: 38.76
+ *       500:
+ *         description: Internal server error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Database error: connection failed"
  */
 
 router.get("/", qbController.getAllQBs);

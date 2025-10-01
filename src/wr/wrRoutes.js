@@ -39,6 +39,16 @@ const wrController = require("./wrController");
  *                     type: number
  *                     format: float
  *                     example: 19.3
+ *       500:
+ *         description: Internal server error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Database error: connection failed"
  */
 router.get("/", wrController.getAllWRs);
 

@@ -39,6 +39,16 @@ const teController = require("./teController");
  *                     type: number
  *                     format: float
  *                     example: 21.0
+ *       500:
+ *         description: Internal server error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Database error: connection failed"
  */
 router.get("/", teController.getAllTEs);
 
