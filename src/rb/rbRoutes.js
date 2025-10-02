@@ -7,6 +7,31 @@ const rbController = require("./rbController");
  * /rb:
  *   get:
  *     summary: Retrieve a list of all RBs weekly performances
+ *     parameters:
+ *      - in: query
+ *        name: player_id
+ *        schema:
+ *          type: string
+ *        required: false
+ *        description: Filter by Player ID
+ *      - in: query
+ *        name: team
+ *        schema:
+ *          type: string
+ *        required: false
+ *        description: Filter by RB's Team
+ *      - in: query
+ *        name: week
+ *        schema:
+ *          type: string
+ *        required: false
+ *        description: Filter by NFL's Scheduled Week
+ *      - in: query
+ *        name: player_opponent
+ *        schema:
+ *          type: string
+ *        required: false
+ *        description: Filter by Team Faced
  *     responses:
  *       200:
  *         description: A list of this year's RBs performance by week
