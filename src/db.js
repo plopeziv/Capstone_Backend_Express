@@ -1,9 +1,25 @@
 const pgp = require("pg-promise")();
+const fs = require("fs");
+const path = require("path");
+
 require("dotenv").config();
 
-const { LOCAL_DB_PASSWORD, DB_NAME } = process.env;
+const { DB_HOST, DB_PORT, DB_NAME, DB_USER, DB_PASSWORD, DB_SSL_CERT_PATH } =
+  process.env;
 
-const dbPassword = encodeURIComponent(LOCAL_DB_PASSWORD);
-const db = pgp(`postgres://postgres:${dbPassword}@localhost:5432/${DB_NAME}`);
+const ssl = DB_SSL_CERT_PATH
+  ? { ca: fs.readFileSync(path.resolve(DB_SSL_CERT_PATH)).toString() }
+  : undefined;
+
+const db = pgp({
+  host: DB_HOST,
+  port: DB_PORT,
+  database: DB_NAME,
+  user: DB_USER,
+  password: DB_PASSWORD,
+  ...(ssl && {
+    ssl: ssl,
+  }),
+});
 
 module.exports = db;
