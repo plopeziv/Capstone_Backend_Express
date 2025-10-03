@@ -4,7 +4,7 @@ const swaggerJsDoc = require("swagger-jsdoc");
 const db = require("./db");
 
 const app = express();
-const port = 3040;
+const port = process.env.PORT || 3040;
 
 const swaggerOptions = {
   definition: {
@@ -16,7 +16,7 @@ const swaggerOptions = {
     },
     servers: [
       {
-        url: "http://localhost:3040",
+        url: process.env.BASE_URL,
       },
     ],
   },
@@ -54,5 +54,5 @@ app.use("/k", kRoutes);
 
 app.listen(port, () => {
   console.log(`Capstone Backend listening on port ${port}`);
-  console.log(`Swagger docs available at http://localhost:${port}/api-docs`);
+  console.log(`Swagger docs available at ${process.env.SWAGGER_URL}/api-docs`);
 });

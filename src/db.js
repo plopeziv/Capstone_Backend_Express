@@ -4,15 +4,7 @@ const path = require("path");
 
 require("dotenv").config();
 
-const {
-  DB_HOST,
-  DB_PORT,
-  DB_NAME,
-  DB_USER,
-  DB_PASSWORD,
-  DB_SSL_CERT_PATH,
-  DB_CA,
-} = process.env;
+const { DB_HOST, DB_PORT, DB_NAME, DB_USER, DB_PASSWORD, DB_CA } = process.env;
 
 const ca = DB_CA
   ? {
