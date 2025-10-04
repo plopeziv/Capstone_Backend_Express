@@ -1,10 +1,13 @@
 const express = require("express");
-const swaggerUi = require("swagger-ui-express");
+const swaggerUI = require("swagger-ui-express");
 const swaggerJsDoc = require("swagger-jsdoc");
 const db = require("./db");
 
 const app = express();
 const port = process.env.PORT || 3040;
+
+const CSS_URL =
+  "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.1.0/swagger-ui.min.css";
 
 const swaggerOptions = {
   definition: {
@@ -24,7 +27,11 @@ const swaggerOptions = {
 };
 
 const swaggerSpec = swaggerJsDoc(swaggerOptions);
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+app.use(
+  "/api-docs",
+  swaggerUI.serve,
+  swaggerUI.setup(swaggerSpec, { customCssUrl: CSS_URL })
+);
 
 app.get("/", async (req, res) => {
   try {
@@ -54,5 +61,5 @@ app.use("/k", kRoutes);
 
 app.listen(port, () => {
   console.log(`Capstone Backend listening on port ${port}`);
-  console.log(`Swagger docs available at ${process.env.SWAGGER_URL}/api-docs`);
+  console.log(`Swagger docs available at ${process.env.BASE_URL}/api-docs`);
 });
