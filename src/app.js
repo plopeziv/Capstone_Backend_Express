@@ -7,9 +7,6 @@ const db = require("./db");
 const app = express();
 const port = process.env.PORT || 3040;
 
-const CSS_URL =
-  "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.1.0/swagger-ui.min.css";
-
 app.use(
   cors({
     origin: ["http://localhost:3000", "https://pedrolopeziv.vercel.app"],
@@ -35,16 +32,18 @@ const swaggerOptions = {
 
 const swaggerSpec = swaggerJsDoc(swaggerOptions);
 if (process.env.VERCEL !== "1") {
-  app.use(
-    "/api-docs",
-    swaggerUI.serve,
-    swaggerUI.setup(swaggerSpec, { customCssUrl: CSS_URL })
-  );
+  app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerSpec));
 } else {
-  app.get("/swagger.json", (req, res) => {
-    res.setHeader("Content-Type", "application/json");
-    res.send(swaggerSpec);
-  });
+  app.get(
+    "/swagger.json",
+    cors({
+      origin: ["http://localhost:3000", "https://pedrolopeziv.vercel.app"],
+    }),
+    (req, res) => {
+      res.setHeader("Content-Type", "application/json");
+      res.send(swaggerSpec);
+    }
+  );
 }
 
 app.get("/", async (req, res) => {
