@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 const swaggerUI = require("swagger-ui-express");
 const swaggerJsDoc = require("swagger-jsdoc");
 const db = require("./db");
@@ -11,10 +12,7 @@ const CSS_URL =
 
 app.use(
   cors({
-    origin: [
-      "http://localhost:3000",
-      "https://capstone-backend-express-hfplm8xbp.vercel.app",
-    ],
+    origin: ["http://localhost:3000", "https://pedrolopeziv.vercel.app/"],
   })
 );
 
