@@ -26,13 +26,18 @@ const swaggerOptions = {
   apis: ["./src/*/*Routes.js"],
 };
 
+const swaggerSpec = swaggerJsDoc(swaggerOptions);
 if (process.env.VERCEL !== "1") {
-  const swaggerSpec = swaggerJsDoc(swaggerOptions);
   app.use(
     "/api-docs",
     swaggerUI.serve,
     swaggerUI.setup(swaggerSpec, { customCssUrl: CSS_URL })
   );
+} else {
+  app.get("/swagger.json", (req, res) => {
+    res.setHeader("Content-Type", "application/json");
+    res.send(swaggerSpec);
+  });
 }
 
 app.get("/", async (req, res) => {
