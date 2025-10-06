@@ -26,12 +26,14 @@ const swaggerOptions = {
   apis: ["./src/*/*Routes.js"],
 };
 
-const swaggerSpec = swaggerJsDoc(swaggerOptions);
-app.use(
-  "/api-docs",
-  swaggerUI.serve,
-  swaggerUI.setup(swaggerSpec, { customCssUrl: CSS_URL })
-);
+if (process.env.VERCEL !== "1") {
+  const swaggerSpec = swaggerJsDoc(swaggerOptions);
+  app.use(
+    "/api-docs",
+    swaggerUI.serve,
+    swaggerUI.setup(swaggerSpec, { customCssUrl: CSS_URL })
+  );
+}
 
 app.get("/", async (req, res) => {
   try {
@@ -61,5 +63,6 @@ app.use("/k", kRoutes);
 
 app.listen(port, () => {
   console.log(`Capstone Backend listening on port ${port}`);
-  console.log(`Swagger docs available at ${process.env.BASE_URL}/api-docs`);
+  process.env.VERCEL !== "1" &&
+    console.log(`Swagger docs available at ${process.env.BASE_URL}/api-docs`);
 });
