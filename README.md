@@ -44,6 +44,22 @@ This project is designed to work with Node.js version 20. Please use your prefer
    ```
    Open [http://localhost:3040](http://localhost:3040) with your browser to see the result.
 
+## Documentation
+
+Interactive API documentation is available through **Swagger** and can be accessed both locally and in production.
+
+### Local
+
+Once the development server is running, open [http://localhost:3040/api-docs](http://localhost:3040/api-docs) in your browser.
+
+This allows you to explore all available endpoints, view request/response formats, and try out API calls.
+
+### Production (GitHub Pages)
+
+The API documentation is also hosted on **GitHub Pages**. You can access it [here](https://plopeziv.github.io/Capstone_Backend_Express/api-docs).
+
+This provides the same interactive Swagger interface without requiring a local server.
+
 ## Credits
 
 This project uses fantasy football data sourced from the CSV files maintained by **[hvpkod](https://github.com/hvpkod/NFL-Data)**. Their repository is updated weekly and serves as the foundation for populating the PostgreSQL database used in this API.
