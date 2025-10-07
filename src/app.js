@@ -32,16 +32,24 @@ const swaggerOptions = {
 
 const swaggerSpec = swaggerJsDoc(swaggerOptions);
 if (process.env.VERCEL === "1") {
-  app.get(
-    "/swagger.json",
-    cors({
-      origin: ["http://localhost:3000", "https://pedrolopeziv.vercel.app"],
-    }),
-    (req, res) => {
-      res.setHeader("Content-Type", "application/json");
-      res.send(swaggerSpec);
+  app.get("/swagger.json", (req, res) => {
+    const allowedOrigins = [
+      "http://localhost:3000",
+      "https://pedrolopeziv.vercel.app",
+    ];
+
+    const origin = req.headers.origin;
+    if (allowedOrigins.includes(origin)) {
+      res.setHeader("Access-Control-Allow-Origin", origin);
+      res.setHeader("Vary", "Origin");
     }
-  );
+
+    res.setHeader("Access-Control-Allow-Methods", "GET, OPTIONS");
+    res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+    res.setHeader("Content-Type", "application/json");
+
+    res.status(200).send(swaggerSpec);
+  });
 } else {
   app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerSpec));
 }
