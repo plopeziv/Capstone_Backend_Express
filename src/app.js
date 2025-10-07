@@ -31,9 +31,7 @@ const swaggerOptions = {
 };
 
 const swaggerSpec = swaggerJsDoc(swaggerOptions);
-if (process.env.VERCEL !== "1") {
-  app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerSpec));
-} else {
+if (process.env.VERCEL === "1") {
   app.get(
     "/swagger.json",
     cors({
@@ -44,6 +42,8 @@ if (process.env.VERCEL !== "1") {
       res.send(swaggerSpec);
     }
   );
+} else {
+  app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerSpec));
 }
 
 app.get("/", async (req, res) => {
