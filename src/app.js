@@ -36,6 +36,7 @@ if (process.env.VERCEL === "1") {
     const allowedOrigins = [
       "http://localhost:3000",
       "https://pedrolopeziv.vercel.app",
+      "https://plopeziv.github.io",
     ];
 
     const origin = req.headers.origin;
